@@ -1,23 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
+import cities from './utils/Cities';
+import Select from 'react-select';
+import React,{useState} from 'react';
 
 function App() {
+const [url,serUrl]=useState('')
+  let preparedValues=[];
+  preparedValues=cities.map((obj)=>{
+    let selectObj={};
+    selectObj.label=obj.city;
+    selectObj.value=obj.image;
+    return selectObj;
+  });
+  let handleImage=(obj)=>{
+serUrl(obj.value);
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    
+        <Select options={preparedValues} onChange={handleImage} />
+        <div />
+        <div />
+        <br />
+        <br />
+        {url!==''?<img src={url} width='400' height='400' />:null}
     </div>
   );
 }
